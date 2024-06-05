@@ -1,6 +1,7 @@
 package model;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 
 public class Ticket {
 
@@ -13,6 +14,7 @@ public class Ticket {
 
 
     public Ticket() {
+        this.createdAtTimestamp = getCurrentUnixTimestamp();
     }
 
     public Ticket(String id, ConcertHall concertHall, Event event, boolean isPromo, char stadiumSector) {
@@ -30,12 +32,16 @@ public class Ticket {
         this.createdAtTimestamp = getCurrentUnixTimestamp();
     }
 
-    public String getId() {
-        return id;
+    private long getCurrentUnixTimestamp() {
+        return System.currentTimeMillis() / 1000L;
     }
 
-    private long getCurrentUnixTimestamp() {
-        return System.currentTimeMillis() / 100L;
+    public Instant getCreatedDateTime() {
+        return Instant.ofEpochSecond(createdAtTimestamp);
+    }
+
+    public String getId() {
+        return id;
     }
 
     public void setId(String id) {

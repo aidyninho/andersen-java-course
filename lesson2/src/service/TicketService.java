@@ -28,5 +28,7 @@ public class TicketService {
         System.out.println(emptyTicket);
         System.out.println(fullTicket);
         System.out.println(limitedTicket);
+
+        System.out.println(emptyTicket.getCreatedDateTime());
     }
 }
