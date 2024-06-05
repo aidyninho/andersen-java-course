@@ -29,6 +29,8 @@ public class TicketService {
         System.out.println(fullTicket);
         System.out.println(limitedTicket);
 
+        System.out.println(fullTicket.getEvent().getPrice());
+        System.out.println(fullTicket.getEvent().getPrice() instanceof BigDecimal);
         System.out.println(emptyTicket.getCreatedDateTime());
     }
 }
