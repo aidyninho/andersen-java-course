@@ -1,6 +1,8 @@
 import model.ConcertHall;
 import model.Event;
 import model.Ticket;
+import repository.TicketRepository;
+import service.TicketService;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -8,6 +10,10 @@ import java.time.LocalDateTime;
 public class Main {
 
     public static void main(String[] args) {
+
+        var ticketRepository = new TicketRepository();
+        var ticketService = new TicketService(ticketRepository);
+
         var santiagoBernabeuStadium = new ConcertHall(
                 "Bernabéu",
                 5.0
@@ -19,16 +25,18 @@ public class Main {
                 new BigDecimal("99.99")
         );
 
-        var emptyTicket = new Ticket();
-        var fullTicket = new Ticket("AAA1", santiagoBernabeuStadium, kendrickLamarConcert, false, 'J');
-        var limitedTicket = new Ticket(santiagoBernabeuStadium, kendrickLamarConcert);
+        var firstTicket = new Ticket("AAA1", santiagoBernabeuStadium, kendrickLamarConcert, false, 'A');
+        var secondTicket = new Ticket("BBB2", santiagoBernabeuStadium, kendrickLamarConcert, false, 'B');
+        var thirdTicket = new Ticket("CCC3", santiagoBernabeuStadium, kendrickLamarConcert, false, 'C');
 
-        System.out.println(emptyTicket);
-        System.out.println(fullTicket);
-        System.out.println(limitedTicket);
+        System.out.println(ticketService.getTickets());
+        System.out.println(ticketService.getTickets().size());
 
-        System.out.println(fullTicket.getEvent().getPrice());
-        System.out.println(fullTicket.getEvent().getPrice() instanceof BigDecimal);
-        System.out.println(emptyTicket.getCreatedDateTime());
+        ticketService.addTicket(firstTicket);
+        ticketService.addTicket(secondTicket);
+        ticketService.addTicket(thirdTicket);
+
+        System.out.println(ticketService.getTickets());
+        System.out.println(ticketService.getTickets().size());
     }
 }
