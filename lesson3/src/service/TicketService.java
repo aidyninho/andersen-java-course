@@ -6,8 +6,12 @@ import model.Ticket;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TicketService {
+
+    private final static List<Ticket> tickets = new ArrayList<>();
 
     public static void main(String[] args) {
         var santiagoBernabeuStadium = new ConcertHall(
@@ -32,5 +36,15 @@ public class TicketService {
         System.out.println(fullTicket.getEvent().getPrice());
         System.out.println(fullTicket.getEvent().getPrice() instanceof BigDecimal);
         System.out.println(emptyTicket.getCreatedDateTime());
+    }
+
+    public static List<Ticket> getTicketsByStadiumSector(char stadium) {
+        List<Ticket> searchedTickets = new ArrayList<>();
+        for (int i = 0; i < tickets.size(); i++) {
+            if (tickets.get(i).getStadiumSector()==stadium) {
+                searchedTickets.add(tickets.get(i));
+            }
+        }
+        return searchedTickets;
     }
 }
