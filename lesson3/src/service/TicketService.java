@@ -16,6 +16,10 @@ public class TicketService {
         this.ticketRepository = ticketRepository;
     }
 
+    public Ticket getTicketById(String id) {
+        return ticketRepository.getTicketById(id);
+    }
+
     public ArrayList<Ticket> getTickets() {
         return new ArrayList<>(ticketRepository.getTickets().values());
     }

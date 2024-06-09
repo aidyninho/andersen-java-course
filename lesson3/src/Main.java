@@ -38,5 +38,9 @@ public class Main {
 
         System.out.println(ticketService.getTickets());
         System.out.println(ticketService.getTickets().size());
+
+        System.out.println(ticketService.getTicketById("AAA1"));
+        System.out.println(ticketService.getTicketById("BBB2"));
+        System.out.println(ticketService.getTicketById("DDD4"));
     }
 }

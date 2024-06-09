@@ -21,6 +21,13 @@ public class TicketRepository {
         tickets.put(ticket.getId(), ticket);
     }
 
+    public Ticket getTicketById(String id) {
+        if (!tickets.containsKey(id)) {
+            throw new IllegalArgumentException("Ticket with id " + id + " not found");
+        }
+        return tickets.get(id);
+    }
+
     public Map<String, Ticket> getTickets() {
         return tickets;
     }
