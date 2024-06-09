@@ -14,6 +14,15 @@ public class Event {
     }
 
     public Event(String code, String name, LocalDateTime time, BigDecimal price) {
+        if (code.length() != 3) {
+            throw new IllegalArgumentException("Event code must be exactly 3 digits long. Got: " + code.length());
+        } else {
+            for (int i = 0; i < code.length(); i++) {
+                if (!Character.isDigit(code.charAt(i))) {
+                    throw new IllegalArgumentException("Event code must contain only digits. Got: " + code.charAt(i));
+                }
+            }
+        }
         this.code = code;
         this.name = name;
         this.time = time;

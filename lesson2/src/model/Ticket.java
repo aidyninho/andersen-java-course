@@ -18,6 +18,9 @@ public class Ticket {
     }
 
     public Ticket(String id, ConcertHall concertHall, Event event, boolean isPromo, char stadiumSector) {
+        if (id.length() > 4) {
+            throw new IllegalArgumentException("ID length must be less than 5 characters. Got: " + id.length());
+        }
         this.id = id;
         this.concertHall = concertHall;
         this.event = event;

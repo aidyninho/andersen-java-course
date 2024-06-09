@@ -9,6 +9,9 @@ public class ConcertHall {
     }
 
     public ConcertHall(String name, double maxAllowedBackpackWeight) {
+        if (name.length() > 10) {
+            throw new IllegalArgumentException("Concert hall name length must be less than 11 characters. Got: " + name.length());
+        }
         this.name = name;
         this.maxAllowedBackpackWeight = maxAllowedBackpackWeight;
     }

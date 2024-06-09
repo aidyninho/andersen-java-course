@@ -11,12 +11,12 @@ public class TicketService {
 
     public static void main(String[] args) {
         var santiagoBernabeuStadium = new ConcertHall(
-                "Santiago Bernabéu Stadium",
+                "Bernabéu",
                 5.0
         );
         var kendrickLamarConcert = new Event(
-                "1234",
-                "Kendrick Lamar concert",
+                "123",
+                "Kendrick concert",
                 LocalDateTime.of(2024, 6, 6, 18, 0),
                 new BigDecimal("99.99")
         );
