@@ -1,6 +1,5 @@
-import model.ConcertHall;
-import model.Event;
-import model.Ticket;
+import model.*;
+import model.base.User;
 import repository.TicketRepository;
 import service.TicketService;
 
@@ -50,5 +49,14 @@ public class Main {
 
         firstTicket.share("+777777777");
         firstTicket.share("+777777777", "test@andersen.com");
+
+        var client = new Client(1);
+        var admin = new Admin(1);
+
+        client.printRole();
+        admin.printRole();
+
+        System.out.println(client.getTickets().size());
+        System.out.println(admin.checkTicket(firstTicket));
     }
 }

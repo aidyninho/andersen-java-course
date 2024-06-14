@@ -1,4 +1,4 @@
-package model;
+package model.base;
 
 public abstract class BaseTicket {
 
