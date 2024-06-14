@@ -2,7 +2,7 @@ package model;
 
 import java.time.Instant;
 
-public class Ticket implements Printable {
+public class Ticket implements Printable, Shareable {
 
     private String id;
     private ConcertHall concertHall;

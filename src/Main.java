@@ -47,5 +47,8 @@ public class Main {
         System.out.println(ticketService.getTicketsByStadiumSector('B').size());
 
         firstTicket.print();
+
+        firstTicket.share("+777777777");
+        firstTicket.share("+777777777", "test@andersen.com");
     }
 }
