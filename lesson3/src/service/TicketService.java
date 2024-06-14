@@ -1,36 +1,41 @@
 package service;
 
-import model.ConcertHall;
-import model.Event;
 import model.Ticket;
+import repository.TicketRepository;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TicketService {
 
-    public static void main(String[] args) {
-        var santiagoBernabeuStadium = new ConcertHall(
-                "Bernabéu",
-                5.0
-        );
-        var kendrickLamarConcert = new Event(
-                "123",
-                "Kendrick concert",
-                LocalDateTime.of(2024, 6, 6, 18, 0),
-                new BigDecimal("99.99")
-        );
+    TicketRepository ticketRepository;
 
-        var emptyTicket = new Ticket();
-        var fullTicket = new Ticket("AAA1", santiagoBernabeuStadium, kendrickLamarConcert, false, 'J');
-        var limitedTicket = new Ticket(santiagoBernabeuStadium, kendrickLamarConcert);
+    public TicketService() {
+    }
 
-        System.out.println(emptyTicket);
-        System.out.println(fullTicket);
-        System.out.println(limitedTicket);
+    public TicketService(TicketRepository ticketRepository) {
+        this.ticketRepository = ticketRepository;
+    }
 
-        System.out.println(fullTicket.getEvent().getPrice());
-        System.out.println(fullTicket.getEvent().getPrice() instanceof BigDecimal);
-        System.out.println(emptyTicket.getCreatedDateTime());
+    public Ticket getTicketById(String id) {
+        return ticketRepository.getTicketById(id);
+    }
+
+    public List<Ticket> getTicketsByStadiumSector(char stadiumSector) {
+        List<Ticket> tickets = new ArrayList<>();
+        for (Ticket ticket : getTickets()) {
+            if (stadiumSector == ticket.getStadiumSector()) {
+                tickets.add(ticket);
+            }
+        }
+        return tickets;
+    }
+
+    public List<Ticket> getTickets() {
+        return new ArrayList<>(ticketRepository.getTickets().values());
+    }
+
+    public void addTicket(Ticket ticket) {
+        ticketRepository.addTicket(ticket);
     }
 }
