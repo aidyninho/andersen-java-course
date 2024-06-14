@@ -1,6 +1,7 @@
 package model;
 
 import java.time.Instant;
+import java.util.Objects;
 
 public class Ticket implements Printable, Shareable {
 
@@ -9,7 +10,7 @@ public class Ticket implements Printable, Shareable {
     private Event event;
     private boolean isPromo;
     private char stadiumSector;
-    private long createdAtTimestamp;
+    private final long createdAtTimestamp;
 
 
     public Ticket() {
@@ -68,6 +69,24 @@ public class Ticket implements Printable, Shareable {
 
     public long getCreatedAt() {
         return createdAtTimestamp;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Ticket ticket = (Ticket) o;
+        return isPromo == ticket.isPromo
+               && stadiumSector == ticket.stadiumSector
+               && createdAtTimestamp == ticket.createdAtTimestamp
+               && Objects.equals(id, ticket.id)
+               && Objects.equals(concertHall, ticket.concertHall)
+               && Objects.equals(event, ticket.event);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, concertHall, event, isPromo, stadiumSector, createdAtTimestamp);
     }
 
     @Override
