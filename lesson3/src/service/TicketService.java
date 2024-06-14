@@ -4,6 +4,7 @@ import model.Ticket;
 import repository.TicketRepository;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TicketService {
 
@@ -20,7 +21,17 @@ public class TicketService {
         return ticketRepository.getTicketById(id);
     }
 
-    public ArrayList<Ticket> getTickets() {
+    public List<Ticket> getTicketsByStadiumSector(char stadiumSector) {
+        List<Ticket> tickets = new ArrayList<>();
+        for (Ticket ticket : getTickets()) {
+            if (stadiumSector == ticket.getStadiumSector()) {
+                tickets.add(ticket);
+            }
+        }
+        return tickets;
+    }
+
+    public List<Ticket> getTickets() {
         return new ArrayList<>(ticketRepository.getTickets().values());
     }
 

@@ -26,7 +26,7 @@ public class Main {
         );
 
         var firstTicket = new Ticket("AAA1", santiagoBernabeuStadium, kendrickLamarConcert, false, 'A');
-        var secondTicket = new Ticket("BBB2", santiagoBernabeuStadium, kendrickLamarConcert, false, 'B');
+        var secondTicket = new Ticket("BBB2", santiagoBernabeuStadium, kendrickLamarConcert, false, 'A');
         var thirdTicket = new Ticket("CCC3", santiagoBernabeuStadium, kendrickLamarConcert, false, 'C');
 
         System.out.println(ticketService.getTickets());
@@ -41,6 +41,9 @@ public class Main {
 
         System.out.println(ticketService.getTicketById("AAA1"));
         System.out.println(ticketService.getTicketById("BBB2"));
-        System.out.println(ticketService.getTicketById("DDD4"));
+
+        System.out.println(ticketService.getTicketsByStadiumSector('A').size());
+        System.out.println(ticketService.getTicketsByStadiumSector('C').size());
+        System.out.println(ticketService.getTicketsByStadiumSector('B').size());
     }
 }
