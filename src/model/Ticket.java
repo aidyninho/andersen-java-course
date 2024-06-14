@@ -1,20 +1,30 @@
 package model;
 
+import annotation.NullableWarning;
+
+import java.lang.reflect.Field;
 import java.time.Instant;
 import java.util.Objects;
 
 public class Ticket implements Printable, Shareable {
 
+    @NullableWarning(asError = true)
     private String id;
+    @NullableWarning
     private ConcertHall concertHall;
+    @NullableWarning
     private Event event;
-    private boolean isPromo;
-    private char stadiumSector;
-    private final long createdAtTimestamp;
+    @NullableWarning
+    private Boolean isPromo;
+    @NullableWarning
+    private Character stadiumSector;
+    @NullableWarning
+    private final Long createdAtTimestamp;
 
 
     public Ticket() {
         this.createdAtTimestamp = getCurrentUnixTimestamp();
+        checkForNullFields();
     }
 
     public Ticket(String id, ConcertHall concertHall, Event event, boolean isPromo, char stadiumSector) {
@@ -27,16 +37,39 @@ public class Ticket implements Printable, Shareable {
         this.isPromo = isPromo;
         this.stadiumSector = stadiumSector;
         this.createdAtTimestamp = getCurrentUnixTimestamp();
+        checkForNullFields();
     }
 
     public Ticket(ConcertHall concertHall, Event event) {
         this.concertHall = concertHall;
         this.event = event;
         this.createdAtTimestamp = getCurrentUnixTimestamp();
+        checkForNullFields();
     }
 
     private long getCurrentUnixTimestamp() {
         return System.currentTimeMillis() / 1000L;
+    }
+
+    // TODO: 14.06.2024 move this method to BaseTicket
+    private void checkForNullFields() {
+        for (Field field : this.getClass().getDeclaredFields()) {
+            if (field.isAnnotationPresent(NullableWarning.class)) {
+                Object o;
+                try {
+                    o = field.get(this);
+                } catch (IllegalAccessException e) {
+                    throw new RuntimeException(e);
+                }
+                if (o == null) {
+                    if (field.getAnnotation(NullableWarning.class).asError()) {
+                        System.err.println("Variable " + field.getName() + " is null in " + this.getClass().getSimpleName());
+                    } else {
+                        System.out.println("Variable " + field.getName() + " is null in " + this.getClass().getSimpleName());
+                    }
+                }
+            }
+        }
     }
 
     public Instant getCreatedDateTime() {
