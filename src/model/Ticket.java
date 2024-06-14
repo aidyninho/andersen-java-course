@@ -46,32 +46,16 @@ public class Ticket implements Printable {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public ConcertHall getConcertHall() {
         return concertHall;
-    }
-
-    public void setConcertHall(ConcertHall concertHall) {
-        this.concertHall = concertHall;
     }
 
     public Event getEvent() {
         return event;
     }
 
-    public void setEvent(Event event) {
-        this.event = event;
-    }
-
     public boolean isPromo() {
         return isPromo;
-    }
-
-    public void setPromo(boolean promo) {
-        isPromo = promo;
     }
 
     public char getStadiumSector() {

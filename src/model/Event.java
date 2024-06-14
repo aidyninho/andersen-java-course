@@ -33,10 +33,6 @@ public class Event {
         return code;
     }
 
-    public void setCode(String code) {
-        this.code = code;
-    }
-
     public LocalDateTime getTime() {
         return time;
     }
@@ -49,16 +45,8 @@ public class Event {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public BigDecimal getPrice() {
         return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
     }
 
     @Override
