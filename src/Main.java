@@ -45,5 +45,7 @@ public class Main {
         System.out.println(ticketService.getTicketsByStadiumSector('A').size());
         System.out.println(ticketService.getTicketsByStadiumSector('C').size());
         System.out.println(ticketService.getTicketsByStadiumSector('B').size());
+
+        firstTicket.print();
     }
 }

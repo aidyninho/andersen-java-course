@@ -11,4 +11,8 @@ public abstract class BaseTicket {
     public void setId(long id) {
         this.id = id;
     }
+
+    public void print() {
+        System.out.println(this);
+    }
 }

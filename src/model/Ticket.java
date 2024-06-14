@@ -1,9 +1,8 @@
 package model;
 
-import java.math.BigDecimal;
 import java.time.Instant;
 
-public class Ticket {
+public class Ticket implements Printable {
 
     private String id;
     private ConcertHall concertHall;
