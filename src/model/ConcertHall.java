@@ -20,16 +20,8 @@ public class ConcertHall {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public double getMaxAllowedBackpackWeight() {
         return maxAllowedBackpackWeight;
-    }
-
-    public void setMaxAllowedBackpackWeight(double maxAllowedBackpackWeight) {
-        this.maxAllowedBackpackWeight = maxAllowedBackpackWeight;
     }
 
     @Override
