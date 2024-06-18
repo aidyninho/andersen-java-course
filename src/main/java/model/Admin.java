@@ -1,5 +1,6 @@
 package model;
 
+import model.base.Ticket;
 import model.base.User;
 
 public class Admin extends User {

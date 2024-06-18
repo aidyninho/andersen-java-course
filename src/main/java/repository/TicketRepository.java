@@ -1,13 +1,13 @@
 package repository;
 
-import model.Ticket;
+import model.base.Ticket;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class TicketRepository {
 
-    Map<String, Ticket> tickets;
+    Map<Long, Ticket> tickets;
 
     public TicketRepository() {
         this(10);
@@ -21,14 +21,14 @@ public class TicketRepository {
         tickets.put(ticket.getId(), ticket);
     }
 
-    public Ticket getTicketById(String id) {
+    public Ticket getTicketById(Long id) {
         if (!tickets.containsKey(id)) {
             throw new IllegalArgumentException("Ticket with id " + id + " not found");
         }
         return tickets.get(id);
     }
 
-    public Map<String, Ticket> getTickets() {
+    public Map<Long, Ticket> getTickets() {
         return tickets;
     }
 }
