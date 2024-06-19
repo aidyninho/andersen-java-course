@@ -42,7 +42,7 @@ public class BusTicketService {
         }
 
         if (!exceptions.isEmpty()) {
-            System.out.printf("Total = %d\nValid = %d\nMost popular violation = %s",
+            System.out.printf("Total = %d\nValid = %d\nMost popular violation = %s\n",
                     tickets.size(), tickets.size() - violatedTicketsSum, exception.toString());
         }
     }
