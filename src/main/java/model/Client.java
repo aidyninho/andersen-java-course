@@ -1,6 +1,5 @@
 package model;
 
-import model.base.Ticket;
 import model.base.User;
 
 import java.util.ArrayList;

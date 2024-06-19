@@ -1,15 +1,15 @@
 package model;
 
 import annotation.NullableWarning;
-import model.base.Ticket;
 
 import java.lang.reflect.Field;
 import java.time.Instant;
-import java.time.LocalDate;
 import java.util.Objects;
 
-public class ConcertTicket extends model.base.Ticket implements Printable, Shareable {
+public class Ticket implements Printable, Shareable {
 
+    @NullableWarning(asError = true)
+    private String id;
     @NullableWarning
     private ConcertHall concertHall;
     @NullableWarning
@@ -22,13 +22,16 @@ public class ConcertTicket extends model.base.Ticket implements Printable, Share
     private final Long createdAtTimestamp;
 
 
-    public ConcertTicket() {
+    public Ticket() {
         this.createdAtTimestamp = getCurrentUnixTimestamp();
         checkForNullFields();
     }
 
-    public ConcertTicket(Long id, ConcertHall concertHall, Event event, boolean isPromo, char stadiumSector) {
-        super(id);
+    public Ticket(String id, ConcertHall concertHall, Event event, boolean isPromo, char stadiumSector) {
+        if (id.length() > 4) {
+            throw new IllegalArgumentException("ID length must be less than 5 characters. Got: " + id.length());
+        }
+        this.id = id;
         this.concertHall = concertHall;
         this.event = event;
         this.isPromo = isPromo;
@@ -37,7 +40,7 @@ public class ConcertTicket extends model.base.Ticket implements Printable, Share
         checkForNullFields();
     }
 
-    public ConcertTicket(ConcertHall concertHall, Event event) {
+    public Ticket(ConcertHall concertHall, Event event) {
         this.concertHall = concertHall;
         this.event = event;
         this.createdAtTimestamp = getCurrentUnixTimestamp();
@@ -73,6 +76,10 @@ public class ConcertTicket extends model.base.Ticket implements Printable, Share
         return Instant.ofEpochSecond(createdAtTimestamp);
     }
 
+    public String getId() {
+        return id;
+    }
+
     public ConcertHall getConcertHall() {
         return concertHall;
     }
@@ -101,19 +108,24 @@ public class ConcertTicket extends model.base.Ticket implements Printable, Share
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ConcertTicket that = (ConcertTicket) o;
-        return Objects.equals(concertHall, that.concertHall) && Objects.equals(event, that.event) && Objects.equals(isPromo, that.isPromo) && Objects.equals(stadiumSector, that.stadiumSector) && Objects.equals(createdAtTimestamp, that.createdAtTimestamp);
+        Ticket ticket = (Ticket) o;
+        return isPromo == ticket.isPromo
+               && stadiumSector == ticket.stadiumSector
+               && createdAtTimestamp == ticket.createdAtTimestamp
+               && Objects.equals(id, ticket.id)
+               && Objects.equals(concertHall, ticket.concertHall)
+               && Objects.equals(event, ticket.event);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(concertHall, event, isPromo, stadiumSector, createdAtTimestamp);
+        return Objects.hash(id, concertHall, event, isPromo, stadiumSector, createdAtTimestamp);
     }
 
     @Override
     public String toString() {
-        return "ConcertTicket{" +
-               "id="  +  getId() +
+        return "Ticket{" +
+               "id='" + id + '\'' +
                ", concertHall=" + concertHall +
                ", event=" + event +
                ", isPromo=" + isPromo +

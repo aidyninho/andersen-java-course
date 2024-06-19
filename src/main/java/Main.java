@@ -1,12 +1,9 @@
 import model.*;
-import model.base.Ticket;
 import repository.TicketRepository;
 import service.TicketService;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 
 public class Main {
 
@@ -23,7 +20,7 @@ public class Main {
                 new BigDecimal("99.99")
         );
 
-        var firstTicket = new ConcertTicket(1L, santiagoBernabeuStadium, kendrickLamarConcert, false, 'A');
+        var firstTicket = new Ticket("AAA1", santiagoBernabeuStadium, kendrickLamarConcert, false, 'A');
 
         firstTicket.print();
 
@@ -36,6 +33,9 @@ public class Main {
         client.printRole();
         admin.printRole();
 
-        System.out.println(LocalDate.parse("2025-01-01"));
+        System.out.println(client.getTickets().size());
+        System.out.println(admin.checkTicket(firstTicket));
+
+        Ticket ticket = new Ticket();
     }
 }

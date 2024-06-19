@@ -1,7 +1,6 @@
 package service;
 
-import model.ConcertTicket;
-import model.base.Ticket;
+import model.Ticket;
 import repository.TicketRepository;
 
 import java.util.ArrayList;
@@ -18,8 +17,18 @@ public class TicketService {
         this.ticketRepository = ticketRepository;
     }
 
-    public Ticket getTicketById(Long id) {
+    public Ticket getTicketById(String id) {
         return ticketRepository.getTicketById(id);
+    }
+
+    public List<Ticket> getTicketsByStadiumSector(char stadiumSector) {
+        List<Ticket> tickets = new ArrayList<>();
+        for (Ticket ticket : getTickets()) {
+            if (stadiumSector == ticket.getStadiumSector()) {
+                tickets.add(ticket);
+            }
+        }
+        return tickets;
     }
 
     public List<Ticket> getTickets() {
