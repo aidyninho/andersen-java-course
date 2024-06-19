@@ -1,41 +1,24 @@
-import model.*;
-import repository.TicketRepository;
-import service.TicketService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import model.BusTicket;
+import repository.BusTicketRepository;
+import service.BusTicketService;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws JsonProcessingException {
 
-        var santiagoBernabeuStadium = new ConcertHall(
-                "Bernabéu",
-                5.0
-        );
-        var kendrickLamarConcert = new Event(
-                "123",
-                "Kendrick concert",
-                LocalDateTime.of(2024, 6, 6, 18, 0),
-                new BigDecimal("99.99")
-        );
+        BusTicketService busTicketService = new BusTicketService(new BusTicketRepository(10));
+        Scanner scanner = new Scanner(System.in);
+        int count = Integer.parseInt(scanner.nextLine());
 
-        var firstTicket = new Ticket("AAA1", santiagoBernabeuStadium, kendrickLamarConcert, false, 'A');
+        for (int i = 0; i < count; i++) {
+            BusTicket ticket = new ObjectMapper().readValue(scanner.nextLine(), BusTicket.class);
+            busTicketService.add(ticket);
+        }
 
-        firstTicket.print();
-
-        firstTicket.share("+777777777");
-        firstTicket.share("+777777777", "test@andersen.com");
-
-        var client = new Client(1);
-        var admin = new Admin(1);
-
-        client.printRole();
-        admin.printRole();
-
-        System.out.println(client.getTickets().size());
-        System.out.println(admin.checkTicket(firstTicket));
-
-        Ticket ticket = new Ticket();
+        busTicketService.check(busTicketService.getTickets());
     }
 }
