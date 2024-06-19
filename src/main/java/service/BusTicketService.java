@@ -1,6 +1,7 @@
 package service;
 
 import exception.IllegalPriceException;
+import exception.IllegalStartDateException;
 import exception.IllegalTypeException;
 import model.BusTicket;
 import model.Type;
@@ -28,7 +29,7 @@ public class BusTicketService {
         for (BusTicket ticket : tickets) {
             try {
                 validate(ticket);
-            } catch (IllegalTypeException | IllegalPriceException e) {
+            } catch (IllegalTypeException | IllegalPriceException | IllegalStartDateException e) {
                 exceptions.put(e, exceptions.getOrDefault(e, 1));
                 violatedTicketsSum++;
             }
@@ -55,11 +56,16 @@ public class BusTicketService {
         return ticketRepository.getTickets();
     }
     private void validate(BusTicket ticket) {
-        if ((ticket.getTicketType() == Type.PRIME || ticket.getTicketType() == Type.MONTH)
-            && ticket.getStartDate() != null) {
-            throw new IllegalTypeException("PRIME and MONTH type tickets can't have start date. Got " + ticket.getStartDate());
+        if (ticket.getTicketType() != null
+            && ticket.getTicketType() != Type.DAY
+            && ticket.getTicketType() != Type.WEEK
+            && ticket.getTicketType() != Type.MONTH
+            && ticket.getTicketType() != Type.YEAR) {
+            throw new IllegalTypeException("Illegal ticket type. Got " + ticket.getTicketType());
         } else if (BigDecimal.ZERO.equals(ticket.getPrice())) {
             throw new IllegalPriceException("Ticket price can't be zero.");
+        } else if (ticket.getStartDate() != null) {
+            throw new IllegalStartDateException("Ticket can't have start date. Got " + ticket.getStartDate());
         }
     }
 }

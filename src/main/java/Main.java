@@ -13,7 +13,7 @@ public class Main {
     public static void main(String[] args) throws JsonProcessingException {
 
         BusTicketService busTicketService = new BusTicketService(new BusTicketRepository(10));
-        checkFromConsole(busTicketService);
+//        checkFromConsole(busTicketService);
         checkFromFile(busTicketService);
 
         busTicketService.check(busTicketService.getTickets());

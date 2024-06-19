@@ -31,7 +31,7 @@ public class BusTicket extends BaseTicket {
     }
 
     public LocalDate getStartDate() {
-        if (startDate == null){
+        if (startDate == null || startDate.isEmpty()){
             return null;
         }
         return LocalDate.parse(startDate);
