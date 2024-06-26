@@ -46,7 +46,7 @@ public class BusTicketRepository {
         return ticketsByType;
     }
 
-    public List<BusTicket> getTicketsByPrice(BigDecimal from, BigDecimal to) {
+    public List<BusTicket> getTicketsInPriceRange(BigDecimal from, BigDecimal to) {
         List<BusTicket> ticketsByPrice = new ArrayList<>();
 
         for (BusTicket busTicket : tickets.values()) {

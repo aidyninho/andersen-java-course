@@ -20,8 +20,8 @@ public class Main {
         busTicketService.removeById(0);
         System.out.println(busTicketService.getById(0));
 
-        System.out.println(busTicketService.getTicketsByPrice("10", "50"));
-        System.out.println(busTicketService.getTicketsByPrice("0", "10000"));
+        System.out.println(busTicketService.getTicketsInPriceRange("10", "50"));
+        System.out.println(busTicketService.getTicketsInPriceRange("0", "10000"));
 
     }
 
