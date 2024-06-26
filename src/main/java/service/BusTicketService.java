@@ -55,6 +55,22 @@ public class BusTicketService {
     public List<BusTicket> getTickets() {
         return ticketRepository.getTickets();
     }
+
+    public BusTicket getById(long id) {
+        return ticketRepository.getById(id);
+    }
+
+    public List<BusTicket> getTicketsByType(Type type) {
+        return ticketRepository.getTicketsByType(type);
+    }
+
+    public List<BusTicket> getTicketsByPrice(String from, String to) {
+        return ticketRepository.getTicketsByPrice(new BigDecimal(from), new BigDecimal(to));
+    }
+
+    public BusTicket removeById(long id) {
+        return ticketRepository.removeById(id);
+    }
     private void validate(BusTicket ticket) {
         if (ticket.getTicketType() != null
             && ticket.getTicketType() != Type.DAY
