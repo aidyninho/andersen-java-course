@@ -1,48 +1,39 @@
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import model.BusTicket;
+import repository.ArrayListImpl;
 import repository.BusTicketRepository;
 import service.BusTicketService;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) throws JsonProcessingException {
+        ArrayListImpl<Integer> list = new ArrayListImpl<>(1);
 
-        BusTicketService busTicketService = new BusTicketService(new BusTicketRepository(10));
-//        checkFromConsole(busTicketService);
-        checkFromFile(busTicketService);
+        list.add(0);
+        list.add(1);
+        list.add(2);
+        list.add(2);
+        list.add(2);
+        list.add(2);
+        list.add(2);
 
-        busTicketService.check(busTicketService.getTickets());
+        list.remove(0);
+        list.remove(1);
+        list.remove(2);
 
-    }
+        System.out.println(list.get(0));
+        System.out.println(list.get(1));
+        System.out.println(list.get(2));
+        System.out.println(list.get(3));
+        System.out.println(list.get(4));
 
-    private static void checkFromFile(BusTicketService busTicketService) throws JsonProcessingException {
-        try {
-            Scanner scanner = new Scanner(new File("src/main/resources/test.txt"));
-            while (scanner.hasNextLine()) {
-                BusTicket ticket = new ObjectMapper().readValue(scanner.nextLine(), BusTicket.class);
-                busTicketService.add(ticket);
-            }
-            scanner.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
-    }
-
-    private static void checkFromConsole(BusTicketService busTicketService) throws JsonProcessingException {
-        Scanner scanner = new Scanner(System.in);
-        int count = Integer.parseInt(scanner.nextLine());
-
-        for (int i = 0; i < count; i++) {
-            BusTicket ticket = new ObjectMapper().readValue(scanner.nextLine(), BusTicket.class);
-            busTicketService.add(ticket);
-        }
-
-        busTicketService.check(busTicketService.getTickets());
     }
 }
