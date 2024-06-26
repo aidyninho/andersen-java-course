@@ -1,5 +1,7 @@
 .idea
 /out
-/target
+/target/*
 *.iml
 .DS_store
+
+!/target/andersen-java-course.jar

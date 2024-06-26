@@ -16,7 +16,12 @@ public class Main {
 //        checkFromConsole(busTicketService);
         checkFromFile(busTicketService);
 
-        busTicketService.check(busTicketService.getTickets());
+        System.out.println(busTicketService.getById(0));;
+        busTicketService.removeById(0);
+        System.out.println(busTicketService.getById(0));
+
+        System.out.println(busTicketService.getTicketsInPriceRange("10", "50"));
+        System.out.println(busTicketService.getTicketsInPriceRange("0", "10000"));
 
     }
 

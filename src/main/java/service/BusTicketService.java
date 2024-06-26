@@ -20,6 +20,14 @@ public class BusTicketService {
         this.ticketRepository = ticketRepository;
     }
 
+    /**
+     * Checks tickets for illegal arguments and prints to the console:
+     * <p><b>Total</b> count of tickets;
+     * <p><b>Valid</b> count of valid tickets;
+     * <p><b>Most popular violation</b> type of violation that was caught during the check.
+     * <p>Catches IllegalTypeException | IllegalPriceException | IllegalStartDateException.
+     * @param tickets list of tickets to check for illegal arguments.
+     */
     public void check(List<BusTicket> tickets) {
         Map<RuntimeException, Integer> exceptions = new HashMap<>();
         int violatedTicketsSum = 0;
@@ -55,6 +63,36 @@ public class BusTicketService {
     public List<BusTicket> getTickets() {
         return ticketRepository.getTickets();
     }
+
+    public BusTicket getById(long id) {
+        return ticketRepository.getById(id);
+    }
+
+    public List<BusTicket> getTicketsByType(Type type) {
+        return ticketRepository.getTicketsByType(type);
+    }
+
+    /**
+     * Gets list of tickets in specified price range inclusively.
+     * @param from start of price range (inclusive)
+     * @param to end of price range (inclusive)
+     * @return List of tickets.
+     */
+    public List<BusTicket> getTicketsInPriceRange(String from, String to) {
+        return ticketRepository.getTicketsInPriceRange(new BigDecimal(from), new BigDecimal(to));
+    }
+
+    public BusTicket removeById(long id) {
+        return ticketRepository.removeById(id);
+    }
+
+    /**
+     * Validates the specified ticket.
+     * @param ticket
+     * @throws IllegalTypeException if Type not in {DAY, WEEK, MONTH, YEAR}.
+     * @throws IllegalPriceException if Price is zero.
+     * @throws IllegalStartDateException if startDate is null.
+     */
     private void validate(BusTicket ticket) {
         if (ticket.getTicketType() != null
             && ticket.getTicketType() != Type.DAY
