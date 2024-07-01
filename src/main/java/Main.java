@@ -22,8 +22,6 @@ public class Main {
         set.add(1);
         set.add(2);
 
-        set.contains(0);
-
         set.remove(0);
 
         set.contains(0);
