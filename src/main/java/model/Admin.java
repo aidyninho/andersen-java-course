@@ -1,8 +1,8 @@
 package model;
 
-import model.base.User;
+import model.base.BaseUser;
 
-public class Admin extends User {
+public class Admin extends BaseUser {
 
     public Admin(long id) {
         super(id, Role.ADMIN);

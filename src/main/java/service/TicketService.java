@@ -1,41 +1,29 @@
 package service;
 
+import dao.TicketDao;
 import model.Ticket;
-import repository.TicketRepository;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class TicketService {
 
-    TicketRepository ticketRepository;
+    private TicketDao ticketDao;
 
-    public TicketService() {
+    public TicketService(TicketDao ticketDao) {
+        this.ticketDao = ticketDao;
     }
 
-    public TicketService(TicketRepository ticketRepository) {
-        this.ticketRepository = ticketRepository;
+    public Ticket findById(Long id) {
+        return ticketDao.findById(id);
     }
 
-    public Ticket getTicketById(String id) {
-        return ticketRepository.getTicketById(id);
+    public void save(Ticket ticket) {
+        ticketDao.save(ticket);
     }
 
-    public List<Ticket> getTicketsByStadiumSector(char stadiumSector) {
-        List<Ticket> tickets = new ArrayList<>();
-        for (Ticket ticket : getTickets()) {
-            if (stadiumSector == ticket.getStadiumSector()) {
-                tickets.add(ticket);
-            }
-        }
-        return tickets;
+    public void update(Ticket ticket) {
+        ticketDao.update(ticket);
     }
 
-    public List<Ticket> getTickets() {
-        return new ArrayList<>(ticketRepository.getTickets().values());
-    }
-
-    public void addTicket(Ticket ticket) {
-        ticketRepository.addTicket(ticket);
+    public void delete(Ticket ticket) {
+        ticketDao.delete(ticket);
     }
 }

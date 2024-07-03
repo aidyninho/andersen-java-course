@@ -1,33 +1,29 @@
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import model.BusTicket;
-import repository.ArrayListImpl;
-import repository.BusTicketRepository;
-import repository.HashSetImpl;
-import service.BusTicketService;
+import dao.TicketDao;
+import dao.UserDao;
+import model.User;
+import service.TicketService;
+import service.UserService;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Scanner;
+import java.time.LocalDate;
 
 public class Main {
 
-    public static void main(String[] args) throws JsonProcessingException {
-        HashSetImpl<Integer> set = new HashSetImpl<>();
+    public static void main(String[] args) {
+        UserDao userDao = new UserDao();
 
-        set.add(0);
-        set.add(1);
-        set.add(2);
+        TicketDao ticketDao = new TicketDao();
+        UserService userService = new UserService(userDao, ticketDao);
+        TicketService ticketService = new TicketService(ticketDao);
 
-        set.remove(0);
+        User user = User.builder()
+                .name("test")
+                .createdAt(LocalDate.now())
+                .build();
 
-        set.contains(0);
+        User user1 = userService.findById(13L);
+        user1.setTickets(null);
 
-        for (Integer i : set) {
-            System.out.println(i);
-        }
+        userService.update(user1);
+
     }
 }

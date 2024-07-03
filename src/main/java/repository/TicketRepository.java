@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class TicketRepository {
 
-    Map<String, Ticket> tickets;
+    Map<Long, Ticket> tickets;
 
     public TicketRepository() {
         this(10);
@@ -28,7 +28,7 @@ public class TicketRepository {
         return tickets.get(id);
     }
 
-    public Map<String, Ticket> getTickets() {
+    public Map<Long, Ticket> getTickets() {
         return tickets;
     }
 }

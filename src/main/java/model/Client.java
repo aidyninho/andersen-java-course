@@ -1,11 +1,11 @@
 package model;
 
-import model.base.User;
+import model.base.BaseUser;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Client extends User {
+public class Client extends BaseUser {
 
     private List<Ticket> tickets;
 
