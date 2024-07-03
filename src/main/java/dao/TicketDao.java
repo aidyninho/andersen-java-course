@@ -1,9 +1,7 @@
 package dao;
 
 import model.BusTicket;
-import model.Client;
 import model.Type;
-import model.base.User;
 import util.ConnectionManager;
 
 import java.sql.Date;

@@ -1,114 +1,62 @@
 package dao;
 
-import model.BusTicket;
-import model.Type;
+import model.Client;
+import model.base.User;
 import util.ConnectionManager;
 
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 public class UserDao {
 
     private static final UserDao INSTANCE = new UserDao();
     private static final String SAVE_SQL = """
-            INSERT INTO tickets (user_id, ticket_type, created_at) 
-            VALUES (?, ?::ticket_type, ?);
+            INSERT INTO users (name, created_at) 
+            VALUES (?, ?);
             """;
     private static final String DELETE_SQL = """
-            DELETE FROM tickets
+            DELETE FROM users
             WHERE id = ?;
-            """;
-    private static final String UPDATE_SQL = """
-            UPDATE tickets 
-            SET ticket_type = ?
-            WHERE id = ?
             """;
     private static final String SELECT_SQL = """
             SELECT *
-            FROM tickets
+            FROM users
             WHERE id = ?
-            """;
-    private static final String SELECT_BY_USER_SQL = """
-            SELECT *
-            FROM tickets
-            WHERE user_id = ?
             """;
 
     private UserDao() {
     }
 
-    public BusTicket save(BusTicket ticket) {
+    public User save(User user) {
         try (var connection = ConnectionManager.open();
              var preparedStatement = connection.prepareStatement(SAVE_SQL)) {
-            preparedStatement.setLong(1, ticket.getUserId());
-            preparedStatement.setString(2, ticket.getTicketType().name());
-            preparedStatement.setDate(3, Date.valueOf(ticket.getStartDate()));
+            preparedStatement.setString(1, user.getName());
+            preparedStatement.setDate(2, Date.valueOf(user.getCreatedAt()));
 
             preparedStatement.executeUpdate();
 
-            return ticket;
+            return user;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public Optional<BusTicket> findById(Long id) {
+    public Optional<User> findById(Long id) {
         try (var connection = ConnectionManager.open();
              var preparedStatement = connection.prepareStatement(SELECT_SQL)) {
             preparedStatement.setLong(1, id);
 
             ResultSet resultSet = preparedStatement.executeQuery();
-            BusTicket ticket = null;
+            User user = null;
             if (resultSet.next()) {
-                ticket = new BusTicket();
-                ticket.setId(resultSet.getLong(1));
-                ticket.setTicketType(Type.valueOf(resultSet.getString(2)));
-                ticket.setStartDate(String.valueOf(resultSet.getDate(3)));
+                user = new Client();
+                user.setId(resultSet.getLong(1));
+                user.setName(resultSet.getString(2));
+                user.setCreatedAt(String.valueOf(resultSet.getDate(3)));
             }
-
-            preparedStatement.executeUpdate();
-
-            return Optional.ofNullable(ticket);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public List<BusTicket> findAllByUserId(Long userId) {
-        try (var connection = ConnectionManager.open();
-             var preparedStatement = connection.prepareStatement(SELECT_SQL)) {
-            preparedStatement.setLong(1, userId);
-
-            ResultSet resultSet = preparedStatement.executeQuery();
-            ArrayList<BusTicket> tickets = new ArrayList<>();
-            BusTicket ticket = null;
-            while (resultSet.next()) {
-                ticket = new BusTicket();
-                ticket.setId(resultSet.getLong(1));
-                ticket.setTicketType(Type.valueOf(resultSet.getString(2)));
-                ticket.setStartDate(String.valueOf(resultSet.getDate(3)));
-                tickets.add(ticket);
-            }
-
-            preparedStatement.executeUpdate();
-
-            return tickets;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public void update(BusTicket ticket) {
-        try (var connection = ConnectionManager.open();
-             var preparedStatement = connection.prepareStatement(UPDATE_SQL)) {
-            preparedStatement.setString(1, ticket.getTicketType().toString());
-            preparedStatement.setLong(2, ticket.getId());
-
-            preparedStatement.executeUpdate();
+            return Optional.ofNullable(user);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
