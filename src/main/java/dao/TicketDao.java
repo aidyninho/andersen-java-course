@@ -3,6 +3,7 @@ package dao;
 import model.BusTicket;
 import model.Client;
 import model.Type;
+import model.base.User;
 import util.ConnectionManager;
 
 import java.sql.Date;
@@ -45,7 +46,7 @@ public class TicketDao {
     public BusTicket save(BusTicket ticket) {
         try (var connection = ConnectionManager.open();
              var preparedStatement = connection.prepareStatement(SAVE_SQL)) {
-            preparedStatement.setLong(1, ticket.getUser().getId());
+            preparedStatement.setLong(1, ticket.getUserId());
             preparedStatement.setString(2, ticket.getTicketType().name());
             preparedStatement.setDate(3, Date.valueOf(ticket.getStartDate()));
 
@@ -78,7 +79,7 @@ public class TicketDao {
 
     public List<BusTicket> findAllByUserId(Long userId) {
         try (var connection = ConnectionManager.open();
-             var preparedStatement = connection.prepareStatement(SELECT_SQL)) {
+             var preparedStatement = connection.prepareStatement(SELECT_BY_USER_SQL)) {
             preparedStatement.setLong(1, userId);
 
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -87,13 +88,11 @@ public class TicketDao {
             while (resultSet.next()) {
                 ticket = new BusTicket();
                 ticket.setId(resultSet.getLong(1));
-                ticket.setTicketType(Type.valueOf(resultSet.getString(2)));
-                ticket.setStartDate(String.valueOf(resultSet.getDate(3)));
+                ticket.setUserId(resultSet.getLong(2));
+                ticket.setTicketType(Type.valueOf(resultSet.getString(3)));
+                ticket.setStartDate(String.valueOf(resultSet.getDate(4)));
                 tickets.add(ticket);
             }
-
-            preparedStatement.executeUpdate();
-
             return tickets;
         } catch (SQLException e) {
             throw new RuntimeException(e);

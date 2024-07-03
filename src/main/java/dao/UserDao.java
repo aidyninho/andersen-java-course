@@ -44,7 +44,7 @@ public class UserDao {
     public BusTicket save(BusTicket ticket) {
         try (var connection = ConnectionManager.open();
              var preparedStatement = connection.prepareStatement(SAVE_SQL)) {
-            preparedStatement.setLong(1, ticket.getUser().getId());
+            preparedStatement.setLong(1, ticket.getUserId());
             preparedStatement.setString(2, ticket.getTicketType().name());
             preparedStatement.setDate(3, Date.valueOf(ticket.getStartDate()));
 

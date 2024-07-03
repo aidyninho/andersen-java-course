@@ -6,6 +6,8 @@ public abstract class User {
 
     private long id;
     private Role role;
+    private String name;
+    private String createdAt;
 
     public User() {}
 
@@ -23,6 +25,22 @@ public abstract class User {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
     }
 
     public void printRole() {

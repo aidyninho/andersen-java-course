@@ -11,7 +11,7 @@ public class BusTicket extends BaseTicket {
     private Classification ticketClass;
     private Type ticketType;
     private String startDate;
-    private User user;
+    private Long userId;
 
     public BusTicket() {
     }
@@ -39,12 +39,12 @@ public class BusTicket extends BaseTicket {
         return LocalDate.parse(startDate);
     }
 
-    public User getUser() {
-        return user;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public void setStartDate(String startDate) {

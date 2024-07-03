@@ -20,9 +20,9 @@ public class Main {
         BusTicket busTicket = new BusTicket();
         User user = new Client();
 
-        user.setId(1);
-        user.setRole(Role.CLIENT);
-
+//        user.setId(1);
+//        user.setRole(Role.CLIENT);
+//
 //        busTicket.setTicketType(Type.MONTH);
 //        busTicket.setUser(user);
 //        busTicket.setStartDate("2024-01-01");
@@ -32,9 +32,11 @@ public class Main {
 //        busTicket.setId(4);
 //        ticketDao.update(busTicket);
 
-        Optional<BusTicket> byId = ticketDao.findById(4L);
-        System.out.println(byId.get());
+//        Optional<BusTicket> byId = ticketDao.findById(4L);
+//        System.out.println(byId.get());
+//
+//        ticketDao.delete(4L);
 
-        ticketDao.delete(4L);
+        System.out.println(ticketDao.findAllByUserId(1L));
     }
 }
