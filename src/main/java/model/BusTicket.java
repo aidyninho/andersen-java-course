@@ -1,6 +1,7 @@
 package model;
 
 import model.base.BaseTicket;
+import model.base.User;
 
 import java.time.LocalDate;
 import java.util.Objects;
@@ -10,6 +11,7 @@ public class BusTicket extends BaseTicket {
     private Classification ticketClass;
     private Type ticketType;
     private String startDate;
+    private User user;
 
     public BusTicket() {
     }
@@ -35,6 +37,14 @@ public class BusTicket extends BaseTicket {
             return null;
         }
         return LocalDate.parse(startDate);
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public void setStartDate(String startDate) {

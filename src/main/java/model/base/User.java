@@ -7,10 +7,7 @@ public abstract class User {
     private long id;
     private Role role;
 
-    public User(long id, Role role) {
-        this.id = id;
-        this.role = role;
-    }
+    public User() {}
 
     public long getId() {
         return id;

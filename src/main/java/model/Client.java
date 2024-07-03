@@ -9,8 +9,7 @@ public class Client extends User {
 
     private List<Ticket> tickets;
 
-    public Client(long id) {
-        super(id, Role.CLIENT);
+    public Client() {
         this.tickets = new ArrayList<>();
     }
 
