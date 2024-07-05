@@ -3,10 +3,12 @@ package dao;
 import model.Ticket;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import org.springframework.stereotype.Component;
 import util.SessionFactoryManager;
 
 import java.util.List;
 
+@Component
 public class TicketDao {
 
     public Ticket findById(Long id) {

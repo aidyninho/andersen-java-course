@@ -1,29 +1,13 @@
-import dao.TicketDao;
-import dao.UserDao;
-import model.User;
-import service.TicketService;
+import config.AppConfiguration;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import service.UserService;
-
-import java.time.LocalDate;
 
 public class Main {
 
     public static void main(String[] args) {
-        UserDao userDao = new UserDao();
+        var applicationContext = new AnnotationConfigApplicationContext(AppConfiguration.class);
+        UserService userService = applicationContext.getBean(UserService.class);
 
-        TicketDao ticketDao = new TicketDao();
-        UserService userService = new UserService(userDao, ticketDao);
-        TicketService ticketService = new TicketService(ticketDao);
-
-        User user = User.builder()
-                .name("test")
-                .createdAt(LocalDate.now())
-                .build();
-
-        User user1 = userService.findById(13L);
-        user1.setTickets(null);
-
-        userService.update(user1);
-
+        System.out.println(userService.findById(2L));
     }
 }

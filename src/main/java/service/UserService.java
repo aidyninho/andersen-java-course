@@ -4,14 +4,18 @@ import dao.TicketDao;
 import dao.UserDao;
 import model.Ticket;
 import model.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class UserService {
 
     private UserDao userDao;
     private TicketDao ticketDao;
 
+    @Autowired
     public UserService(UserDao userDao, TicketDao ticketDao) {
         this.userDao = userDao;
         this.ticketDao = ticketDao;

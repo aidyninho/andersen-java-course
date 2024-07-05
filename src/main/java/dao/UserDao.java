@@ -2,8 +2,10 @@ package dao;
 
 import model.User;
 import org.hibernate.Transaction;
+import org.springframework.stereotype.Component;
 import util.SessionFactoryManager;
 
+@Component
 public class UserDao {
 
     public User findById(Long id) {

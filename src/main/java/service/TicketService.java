@@ -2,11 +2,15 @@ package service;
 
 import dao.TicketDao;
 import model.Ticket;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class TicketService {
 
     private TicketDao ticketDao;
 
+    @Autowired
     public TicketService(TicketDao ticketDao) {
         this.ticketDao = ticketDao;
     }
