@@ -2,10 +2,12 @@ package service;
 
 import dao.TicketDao;
 import dao.UserDao;
+import exception.CreatableModeIsTurnedOff;
 import jakarta.transaction.Transactional;
 import model.Ticket;
 import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +17,8 @@ public class UserService {
 
     private UserDao userDao;
     private TicketDao ticketDao;
+    @Value("#{new Boolean(\"${updatable}\")}")
+    private boolean updatable;
 
     @Autowired
     public UserService(UserDao userDao, TicketDao ticketDao) {
@@ -31,11 +35,17 @@ public class UserService {
 
     @Transactional
     public void save(User user) {
+        if (!updatable) {
+            throw new CreatableModeIsTurnedOff();
+        }
         userDao.save(user);
     }
 
     @Transactional
     public void update(User user) {
+        if (!updatable) {
+            throw new CreatableModeIsTurnedOff();
+        }
         userDao.update(user);
     }
 
