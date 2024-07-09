@@ -1,0 +1,6 @@
+db:
+  url: jdbc:postgresql://localhost:5432/my_ticket_service_db
+  username: postgres
+  password: postgres
+app:
+  updatable: true
