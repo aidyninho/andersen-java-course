@@ -3,6 +3,7 @@ package kz.aidyninho.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
+import kz.aidyninho.dto.TicketDto;
 import kz.aidyninho.model.Ticket;
 import kz.aidyninho.repository.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,14 @@ public class TicketService {
         this.ticketRepository = ticketRepository;
     }
 
-    public Ticket findById(Long id) {
-        return ticketRepository.findById(id).get();
+    public TicketDto findById(Long id) {
+        Ticket ticket = ticketRepository.findById(id).get();
+        return new TicketDto(
+                ticket.getId(),
+                ticket.getUser().getId(),
+                ticket.getType(),
+                ticket.getCreatedAt()
+        );
     }
 
     @Transactional

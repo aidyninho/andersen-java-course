@@ -1,6 +1,6 @@
 package kz.aidyninho.controller;
 
-import kz.aidyninho.model.Ticket;
+import kz.aidyninho.dto.TicketDto;
 import kz.aidyninho.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +20,7 @@ public class TicketRestController {
     }
 
     @GetMapping("/tickets/{id}")
-    public Ticket findById(@PathVariable(name = "id") String id) {
+    public TicketDto findById(@PathVariable(name = "id") String id) {
         return ticketService.findById(Long.parseLong(id));
     }
 }
