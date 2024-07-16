@@ -24,14 +24,4 @@ public class AppConfiguration {
     public TicketDao ticketDao() {
         return new TicketDao();
     }
-
-    @Bean
-    public UserService userService() {
-        return new UserService(userDao(), ticketDao());
-    }
-
-    @Bean
-    public TicketService ticketService() {
-        return new TicketService(ticketDao());
-    }
 }
