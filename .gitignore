@@ -5,5 +5,4 @@
 .DS_store
 
 .gradle
-/build/*
-!/build/libs
+/build
