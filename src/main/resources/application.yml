@@ -1,5 +1,6 @@
 app:
   updatable: true
+  condition: true
 
 spring:
   datasource:
