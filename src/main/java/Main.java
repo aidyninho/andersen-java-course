@@ -1,33 +1,37 @@
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import model.BusTicket;
-import repository.ArrayListImpl;
-import repository.BusTicketRepository;
-import repository.HashSetImpl;
-import service.BusTicketService;
+import config.AppConfiguration;
+import model.Ticket;
+import model.User;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import service.TicketService;
+import service.UserService;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Scanner;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.util.List;
 
 public class Main {
 
-    public static void main(String[] args) throws JsonProcessingException {
-        HashSetImpl<Integer> set = new HashSetImpl<>();
+    public static void main(String[] args) {
+        var applicationContext = new AnnotationConfigApplicationContext(AppConfiguration.class);
+        var userService = applicationContext.getBean(UserService.class);
+        var ticketService = applicationContext.getBean(TicketService.class);
 
-        set.add(0);
-        set.add(1);
-        set.add(2);
+//        userService.save(User.builder()
+//                .name("test")
+//                .createdAt(LocalDate.now())
+//                .build());
 
-        set.remove(0);
+        try {
+            List<Ticket> ticketsFromFile = ticketService.getTicketsFromFile(
+                    applicationContext.getResource("classpath:test.txt").getFile()
+            );
 
-        set.contains(0);
-
-        for (Integer i : set) {
-            System.out.println(i);
+            System.out.println(ticketsFromFile);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
+
     }
+
+
 }

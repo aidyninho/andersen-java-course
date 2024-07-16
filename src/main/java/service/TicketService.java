@@ -1,41 +1,67 @@
 package service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import dao.TicketDao;
+import jakarta.transaction.Transactional;
+import model.BusTicket;
 import model.Ticket;
-import repository.TicketRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
+@Service
 public class TicketService {
 
-    TicketRepository ticketRepository;
+    private TicketDao ticketDao;
 
-    public TicketService() {
+    @Autowired
+    public TicketService(TicketDao ticketDao) {
+        this.ticketDao = ticketDao;
     }
 
-    public TicketService(TicketRepository ticketRepository) {
-        this.ticketRepository = ticketRepository;
+    public Ticket findById(Long id) {
+        return ticketDao.findById(id);
     }
 
-    public Ticket getTicketById(String id) {
-        return ticketRepository.getTicketById(id);
+    @Transactional
+    public void save(Ticket ticket) {
+        ticketDao.save(ticket);
     }
 
-    public List<Ticket> getTicketsByStadiumSector(char stadiumSector) {
+    @Transactional
+    public void update(Ticket ticket) {
+        ticketDao.update(ticket);
+    }
+
+    @Transactional
+    public void delete(Ticket ticket) {
+        ticketDao.delete(ticket);
+    }
+
+    public List<Ticket> getTicketsFromFile(File file) {
         List<Ticket> tickets = new ArrayList<>();
-        for (Ticket ticket : getTickets()) {
-            if (stadiumSector == ticket.getStadiumSector()) {
+
+        try {
+            Scanner scanner = new Scanner(new File("src/main/resources/test.txt"));
+            while (scanner.hasNextLine()) {
+                Ticket ticket = new ObjectMapper().readValue(scanner.nextLine(), Ticket.class);
                 tickets.add(ticket);
             }
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found.");
+            e.printStackTrace();
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
         }
+
         return tickets;
-    }
-
-    public List<Ticket> getTickets() {
-        return new ArrayList<>(ticketRepository.getTickets().values());
-    }
-
-    public void addTicket(Ticket ticket) {
-        ticketRepository.addTicket(ticket);
     }
 }

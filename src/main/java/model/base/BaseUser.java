@@ -2,12 +2,12 @@ package model.base;
 
 import model.Role;
 
-public abstract class User {
+public abstract class BaseUser {
 
     private long id;
     private Role role;
 
-    public User(long id, Role role) {
+    public BaseUser(long id, Role role) {
         this.id = id;
         this.role = role;
     }
