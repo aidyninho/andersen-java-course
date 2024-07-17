@@ -54,7 +54,7 @@ public class TicketService {
         List<Ticket> tickets = new ArrayList<>();
 
         try {
-            Scanner scanner = new Scanner(new File("src/main/resources/test.txt"));
+            Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
                 Ticket ticket = new ObjectMapper().readValue(scanner.nextLine(), Ticket.class);
                 tickets.add(ticket);
